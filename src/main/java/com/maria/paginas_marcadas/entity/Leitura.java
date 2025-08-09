@@ -1,9 +1,7 @@
 package com.maria.paginas_marcadas.entity;
 
 import java.time.OffsetDateTime;
-
 import com.maria.paginas_marcadas.entity.enums.StatusLeitura;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +28,7 @@ public class Leitura {
     @Column(name = "id_leitura")
     private Long id;
 
+	@Column(name = "ordenacao")
     private Integer ordenacao;
 
     @Column(name = "total_paginas_lidas", columnDefinition = "integer default 0")
