@@ -1,9 +1,7 @@
 package com.maria.paginas_marcadas.entity;
 
 import java.time.OffsetDateTime;
-
 import com.maria.paginas_marcadas.entity.enums.TipoFoto;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

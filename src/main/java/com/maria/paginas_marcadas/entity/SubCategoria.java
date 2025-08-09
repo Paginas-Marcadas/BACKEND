@@ -1,11 +1,15 @@
 package com.maria.paginas_marcadas.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -33,7 +37,6 @@ public class SubCategoria {
     @Column(name = "nome_sub_categoria", nullable = false, length = 100)
     private String nome;
 
-   /*
     @ManyToMany
     @JoinTable(
         name = "sub_categoria_livro",
@@ -41,5 +44,5 @@ public class SubCategoria {
         joinColumns = @JoinColumn(name = "id_sub_categoria"),
         inverseJoinColumns = @JoinColumn(name = "id_livro")
     )
-    private List<Livro> livros = new ArrayList<>();*/
+    private List<Livro> livros = new ArrayList<>();
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.maria.paginas_marcadas.entity.enums.StatusMemoriaLivro;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -60,7 +62,6 @@ public class MemoriaLivro {
     @JoinColumn(name = "id_leitura")
     private Leitura leitura;
     
-    /*
     @OneToMany(mappedBy = "memoriaLivro", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Foto> fotos = new ArrayList<>();*/
+    private List<Foto> fotos = new ArrayList<>();
 }

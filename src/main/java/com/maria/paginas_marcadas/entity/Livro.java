@@ -3,10 +3,9 @@ package com.maria.paginas_marcadas.entity;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.maria.paginas_marcadas.entity.enums.Categoria;
 import com.maria.paginas_marcadas.entity.enums.StatusLivro;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -17,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -75,9 +75,7 @@ public class Livro {
     @ManyToMany(mappedBy = "livros")
     private List<SubCategoria> subCategorias = new ArrayList<>();
 
-    /*
-    // Relação OneToMany com Leitura
     @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Leitura> leituras = new ArrayList<>();
-    */
+ 
 }
