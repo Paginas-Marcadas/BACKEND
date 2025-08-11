@@ -14,11 +14,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Getter;
 
-@Getter
 @Component
-public class CustomAuthenticationException implements AuthenticationEntryPoint {
+public class CustomAuthenticationHandler implements AuthenticationEntryPoint {
 
 	private final String titulo;
     private final String descricao;
@@ -26,7 +24,7 @@ public class CustomAuthenticationException implements AuthenticationEntryPoint {
     private final Time horario;
     private final LocalDate data;
 
-    public CustomAuthenticationException() {
+    public CustomAuthenticationHandler() {
         this.titulo = "Acesso Negado";
         this.descricao = "Você precisa estar logado para acessar este recurso.";
         this.status = HttpStatus.UNAUTHORIZED;

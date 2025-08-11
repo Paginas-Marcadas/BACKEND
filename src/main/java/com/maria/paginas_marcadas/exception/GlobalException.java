@@ -18,16 +18,4 @@ public class GlobalException {
         );
         return ResponseEntity.status(ex.getStatus()).body(erro);
     }
-	
-	@ExceptionHandler(CustomAccessDeniedException.class)
-	public ResponseEntity<Error> handleAccessDenied(CustomAccessDeniedException ex) {
-	    Error erro = new Error(
-	        ex.getTitulo(),
-	        ex.getDescricao(),
-	        ex.getStatus().value(),
-	        ex.getHorario(),
-	        ex.getData()
-	    );
-	    return ResponseEntity.status(ex.getStatus()).body(erro);
-	}
 }
