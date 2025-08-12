@@ -294,7 +294,6 @@ public class UsuarioService {
 	    return "Atualização efetuada com sucesso!";
 	}
 	
-	
 	//VERIFCA SE PODE PEDIR UM NOVO CÓDIGO DE RECUPERAÇÃO, ENVIA OS SEGUNDOS QUE FALTAM, O CÓDIGO TEM A VÁLIDADE DE 5 MINUTOS
 	public long tempoRestanteParaNovoTokenRecuperacao (String email) {
 	    Usuario usuario = usuarioRepository.findByEmail(email)
@@ -346,11 +345,11 @@ public class UsuarioService {
 		Usuario usuario = usuarioRepository.findByEmail(email)
 	            .orElseThrow(() -> new CustomGenericException("E-mail sem referência em conta, cadastre-se!", HttpStatus.NOT_FOUND));
 		
-		if (Boolean.FALSE.equals(usuario.getRecuperado()) || usuario.getRecuperado().equals(null)) {
+		if (Boolean.FALSE.equals(usuario.getRecuperado())) {
 	        throw new CustomGenericException("Usuário não está permitido a efetuar a troca de senha!",  HttpStatus.ACCEPTED);
 	    }
 		
-		usuario.setSenha(novaSenha);
+		usuario.setSenha(encoder.encode(novaSenha));
 		usuarioRepository.save(usuario);
 		
 		return "Senha atualizada com sucesso!!";
