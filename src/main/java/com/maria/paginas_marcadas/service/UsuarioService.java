@@ -354,5 +354,4 @@ public class UsuarioService {
 		
 		return "Senha atualizada com sucesso!!";
 	}
-	
 }

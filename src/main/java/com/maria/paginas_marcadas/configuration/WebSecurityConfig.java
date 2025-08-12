@@ -15,6 +15,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.maria.paginas_marcadas.exception.CustomAccessDeniedHandler;
 import com.maria.paginas_marcadas.exception.CustomAuthenticationHandler;
 import com.maria.paginas_marcadas.security.JwtAuthFilter;
@@ -42,7 +45,33 @@ public class WebSecurityConfig {
 	            .accessDeniedHandler(accessDeniedHandlerException)
 	            .authenticationEntryPoint(authenticationException))
 	        .authorizeHttpRequests(auth -> auth
-	            .anyRequest().permitAll()
+	        		
+	            // ROTAS PÚBLICAS
+	            .requestMatchers(
+	            	//SWAGGER
+            		"/swagger-ui/**",
+	                "/swagger-ui.html",
+	                "/v3/api-docs/**",
+	                "/v3/api-docs.yaml",
+	                //USUÁRIO
+	                "/api/usuarios/cadastro",
+	                "/api/usuarios/validar-email",
+	                "/api/usuarios/tempo-restante-validacao",
+	                "/api/usuarios/reenviar-codigo-validacao",
+	                "/api/usuarios/login",
+	                "/api/usuarios/tempo-restante-recuperacao",
+	                "/api/usuarios/reenviar-codigo-recuperacao",
+	                "/api/usuarios/recuperar-senha"
+	            ).permitAll()
+
+	            // ROTAS PRIVADAS 
+	            .requestMatchers(
+	                "/api/usuarios/avatar",
+	                "/api/usuarios/atualizar"
+	            ).authenticated()
+
+	            // QUALQUER OUTRA ROTA
+	            .anyRequest().authenticated()
 	        )
 	        .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
 	        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
@@ -68,5 +97,13 @@ public class WebSecurityConfig {
 	@Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    ObjectMapper objectMapper() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        return mapper;
     }
 }
