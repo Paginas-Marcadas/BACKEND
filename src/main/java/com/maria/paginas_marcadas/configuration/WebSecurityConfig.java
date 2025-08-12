@@ -1,4 +1,4 @@
-package com.maria.paginas_marcadas.security;
+package com.maria.paginas_marcadas.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.maria.paginas_marcadas.exception.CustomAccessDeniedHandler;
 import com.maria.paginas_marcadas.exception.CustomAuthenticationHandler;
+import com.maria.paginas_marcadas.security.JwtAuthFilter;
 
 @Configuration
 @EnableMethodSecurity

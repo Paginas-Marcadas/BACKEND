@@ -6,7 +6,7 @@ public class UsuarioService {
 	
 	//POST - LOGIN DE USUÁRIO
 	
-	//POST - MUDAR FOTO DE PERFIL
+	//POST - ADICIONAR OU MUDAR FOTO DE PERFIL
 	
 	//PATCH - ATUALIZAÇÃO DE UM USUÁRIO
 	
