@@ -26,6 +26,7 @@ public class EmailService {
                         <div style="margin-top: 20px; padding: 12px; background-color: #f3e5f5; border-radius: 8px; font-size: 1.5em; font-weight: bold; color: #4a148c; display: inline-block;">
                             %s
                         </div>
+                        <p style="margin-top: 20px; font-size: 0.9em; color: #555;">O token tem a duração de 5 minutos.</p>
                         <p style="margin-top: 20px; font-size: 0.9em; color: #555;">Se não esperava por este e-mail, ignore-o.</p>
                     </div>
                 </body>
@@ -54,7 +55,7 @@ public class EmailService {
         enviarEmail(destinatario, assunto, conteudo);
     }
 
-    public void sendRecoveryEmail(String destinatario, String nomeUsuario, String token) {
+    public void sendRecoveryPasswordEmail(String destinatario, String nomeUsuario, String token) {
         String assunto = "Recupere sua senha - Páginas Marcadas";
 
         String conteudo = """
@@ -67,6 +68,30 @@ public class EmailService {
                         <div style="margin-top: 20px; padding: 12px; background-color: #f3e5f5; border-radius: 8px; font-size: 1.5em; font-weight: bold; color: #4a148c; display: inline-block;">
                             %s
                         </div>
+                        <p style="margin-top: 20px; font-size: 0.9em; color: #555;">O token tem a duração de 5 minutos.</p>
+                        <p style="margin-top: 20px; font-size: 0.9em; color: #555;">Se você não solicitou a alteração de senha, ignore este e-mail.</p>
+                    </div>
+                </body>
+                </html>
+                """.formatted(nomeUsuario, token);
+
+        enviarEmail(destinatario, assunto, conteudo);
+    }
+    
+    public void sendRecoveryEmail(String destinatario, String nomeUsuario, String token) {
+        String assunto = "Atualização do e-mail - Páginas Marcadas";
+
+        String conteudo = """
+                <html>
+                <body style="font-family: Arial, sans-serif; background-color: #f8f9fa; padding: 20px;">
+                    <div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 30px; border-radius: 10px; text-align: center;">
+                        <h2 style="color: #4a148c;">Redefinição de senha</h2>
+                        <p>Olá, %s!</p>
+                        <p>Recebemos uma solicitação para redefinir seu e-mail. Use o código abaixo para efetuar a modificação:</p>
+                        <div style="margin-top: 20px; padding: 12px; background-color: #f3e5f5; border-radius: 8px; font-size: 1.5em; font-weight: bold; color: #4a148c; display: inline-block;">
+                            %s
+                        </div>
+                        <p style="margin-top: 20px; font-size: 0.9em; color: #555;">O token tem a duração de 5 minutos.</p>
                         <p style="margin-top: 20px; font-size: 0.9em; color: #555;">Se você não solicitou a alteração de senha, ignore este e-mail.</p>
                     </div>
                 </body>
