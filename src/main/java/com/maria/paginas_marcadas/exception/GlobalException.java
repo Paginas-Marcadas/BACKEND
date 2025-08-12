@@ -1,5 +1,8 @@
 package com.maria.paginas_marcadas.exception;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,5 +20,12 @@ public class GlobalException {
             ex.getData()
         );
         return ResponseEntity.status(ex.getStatus()).body(erro);
+    }
+	
+	@ExceptionHandler(CustomGenericException.class)
+    public ResponseEntity<Map<String, String>> handleCustomException(CustomGenericException ex) {
+        Map<String, String> resposta = new HashMap<>();
+        resposta.put("erro", ex.getMensagem());
+        return ResponseEntity.status(ex.getStatus()).body(resposta);
     }
 }
