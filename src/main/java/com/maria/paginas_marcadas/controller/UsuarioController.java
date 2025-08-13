@@ -56,9 +56,10 @@ public class UsuarioController {
     @PostMapping("/login")
     public ResponseEntity<RespostaComTokenDeAcesso> login(
             @RequestParam String email,
-            @RequestParam String senha) {
+            @RequestParam String senha,
+            @RequestParam Boolean salvar) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(usuarioService.login(email, senha));
+                .body(usuarioService.login(email, senha, salvar));
     }
 
     @PostMapping("/avatar")

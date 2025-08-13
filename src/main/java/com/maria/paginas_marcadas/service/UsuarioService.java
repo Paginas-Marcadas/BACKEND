@@ -85,6 +85,7 @@ public class UsuarioService {
 		
 		novoUsuario.setNome(request.getNome());
 		novoUsuario.setDataNascimento(request.getDataNascimento());
+		novoUsuario.setGenero(request.getGenero());
 		novoUsuario.setEmail(request.getEmail());
 		novoUsuario.setSenha(encoder.encode(request.getSenha()));
 		novoUsuario.setValidado(Boolean.FALSE);
@@ -191,7 +192,7 @@ public class UsuarioService {
 	}
 
 	//LOGIN DE USUÁRIO
-	public RespostaComTokenDeAcesso login(String email, String senha) {
+	public RespostaComTokenDeAcesso login(String email, String senha, Boolean salvar) {
 		Usuario usuario = usuarioRepository.findByEmail(email)
 			    .orElseThrow(() -> new CustomGenericException("E-mail sem referência em conta, cadastre-se!", HttpStatus.NOT_FOUND));
 		
@@ -218,7 +219,13 @@ public class UsuarioService {
 			throw new CustomGenericException("Senha incorreta. Verifique seus dados e tente novamente.", HttpStatus.UNAUTHORIZED);
 		}
 		
-		String token = jwtTokenProvider.gerarToken(userDetailService.loadUserByUsername(email));
+		String token;
+		
+		if (salvar.equals(Boolean.TRUE)) {
+			token = jwtTokenProvider.gerarTokenAcessoSalvo(userDetailService.loadUserByUsername(email));
+		} else {
+			token = jwtTokenProvider.gerarToken(userDetailService.loadUserByUsername(email));
+		}
 		usuario.setTokenAcesso(token);
 		usuarioRepository.save(usuario);
 		

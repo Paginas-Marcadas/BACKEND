@@ -1,9 +1,7 @@
 package com.maria.paginas_marcadas.exception;
 
 import java.io.IOException;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
@@ -21,15 +19,13 @@ public class CustomAuthenticationHandler implements AuthenticationEntryPoint {
 	private final String titulo;
     private final String descricao;
     private final HttpStatus status;
-    private final Time horario;
-    private final LocalDate data;
+    private final LocalDateTime data;
 
     public CustomAuthenticationHandler() {
         this.titulo = "Acesso Negado";
         this.descricao = "Você precisa estar logado para acessar este recurso.";
         this.status = HttpStatus.UNAUTHORIZED;
-        this.horario = Time.valueOf(LocalTime.now());
-        this.data = LocalDate.now();
+        this.data = LocalDateTime.now();
     }
 
     @Override
@@ -39,8 +35,7 @@ public class CustomAuthenticationHandler implements AuthenticationEntryPoint {
             titulo,
             descricao,
             status.value(),
-            horario,
-            data
+            data.toString()
         );
 
         response.setContentType("application/json");

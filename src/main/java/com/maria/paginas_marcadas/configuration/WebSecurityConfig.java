@@ -15,9 +15,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.maria.paginas_marcadas.exception.CustomAccessDeniedHandler;
 import com.maria.paginas_marcadas.exception.CustomAuthenticationHandler;
 import com.maria.paginas_marcadas.security.JwtAuthFilter;
@@ -71,7 +68,7 @@ public class WebSecurityConfig {
 	            ).authenticated()
 
 	            // QUALQUER OUTRA ROTA
-	            .anyRequest().authenticated()
+	            .anyRequest().permitAll()
 	        )
 	        .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
 	        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
@@ -86,7 +83,7 @@ public class WebSecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") 
-                	.allowedOrigins("http://localhost:3000")
+                	.allowedOrigins("http://localhost:5173")
                     .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                     .allowedHeaders("*")
                     .allowCredentials(true);
@@ -99,11 +96,4 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    ObjectMapper objectMapper() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        return mapper;
-    }
 }

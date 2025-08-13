@@ -1,12 +1,17 @@
 package com.maria.paginas_marcadas.exception;
 
-import java.sql.Time;
-import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-public record Error(
-	String titulo,
-    String descricao,
-    int status,
-    Time horario,
-    LocalDate data
-) {}
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Error {
+
+	private String titulo;
+	private String descricao;
+	private int status;
+	private String data;
+	
+}
